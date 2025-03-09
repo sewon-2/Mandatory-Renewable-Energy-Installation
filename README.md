@@ -5,8 +5,8 @@
 사용자가 입력한 정보를 기반으로 **Google Sheets API**를 활용하여 클라우드에 업로드 된 엑셀 파일의 연산 결과를 제공하는 서비스입니다.
 
 ## 🛠️ 사용 기술
-- **프론트엔드**: HTML, CSS (SB Admin 2 템플릿 사용)
-- **백엔드**: Python (Flask)
+- **프론트엔드**: HTML, CSS, JavaScript
+- **백엔드**: Python (Flask), gspread
 - **데이터 처리**: Google Sheets API
 
 ## 📂 프로젝트 구조
