@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건축 규모 및 에너지원 스펙 입력</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .form-container {
+            background-color: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        .result-container {
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .btn-primary {
+            margin-top: 40px;
+            width: 20%;
+        }
+        .mb-4x {
+            margin-bottom: 60px !important;
+        }
+        .spacing-expanded {
+            margin-bottom: 120px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="mb-4x">건축 규모 및 에너지원 스펙 입력</h1>
+        <form method="POST" action="/submit">
+            <div class="mb-5">
+                <label for="region" class="form-label">지역</label>
+                <select id="region" name="region" class="form-select">
+                    {% for region in region_list %}
+                        <option value="{{ region }}">{{ region }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="building-use-1" class="form-label">건축 용도-1</label>
+                    <select id="building-use-1" name="building-use-1" class="form-select">
+                        {% for use in building_use_list %}
+                            <option value="{{ use }}">{{ use }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="building-use-2" class="form-label">건축 용도-2</label>
+                    <select id="building-use-2" name="building-use-2" class="form-select">
+                        {% for use in building_use_list %}
+                            <option value="{{ use }}">{{ use }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="building-use-3" class="form-label">건축 용도-3</label>
+                    <select id="building-use-3" name="building-use-3" class="form-select">
+                        {% for use in building_use_list %}
+                            <option value="{{ use }}">{{ use }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3 spacing-expanded">
+                <div class="col">
+                    <label for="total-area-1" class="form-label">연면적-1</label>
+                    <input type="number" id="total-area-1" name="total-area-1" class="form-control" value="0">
+                </div>
+                <div class="col">
+                    <label for="total-area-2" class="form-label">연면적-2</label>
+                    <input type="number" id="total-area-2" name="total-area-2" class="form-control" value="0">
+                </div>
+                <div class="col">
+                    <label for="total-area-3" class="form-label">연면적-3</label>
+                    <input type="number" id="total-area-3" name="total-area-3" class="form-control" value="0">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="energy-source-1" class="form-label">에너지원-1</label>
+                    <select id="energy-source-1" name="energy-source-1" class="form-select">
+                        {% for source in energy_source_list %}
+                            <option value="{{ source }}">{{ source }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="installation-size-1" class="form-label">설치 규모-1 (단위: kW 또는 ㎡ 또는 kg)</label>
+                    <input type="number" id="installation-size-1" name="installation-size-1" class="form-control" value="0">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="energy-source-2" class="form-label">에너지원-2</label>
+                    <select id="energy-source-2" name="energy-source-2" class="form-select">
+                        {% for source in energy_source_list %}
+                            <option value="{{ source }}">{{ source }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="installation-size-2" class="form-label">설치 규모-2 (단위: kW 또는 ㎡ 또는 kg)</label>
+                    <input type="number" id="installation-size-2" name="installation-size-2" class="form-control" value="0">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="energy-source-3" class="form-label">에너지원-3</label>
+                    <select id="energy-source-3" name="energy-source-3" class="form-select">
+                        {% for source in energy_source_list %}
+                            <option value="{{ source }}">{{ source }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="installation-size-3" class="form-label">설치 규모-3 (단위: kW 또는 ㎡ 또는 kg)</label>
+                    <input type="number" id="installation-size-3" name="installation-size-3" class="form-control" value="0">
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">계산하기</button>
+            </div>
+        </form>
+    </div>
+    <div class="result-container">
+        <h1 class="mb-4x">생산량 및 공급 비율 산출</h1>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="result-energy-1" class="form-label">에너지원-1</label>
+                <input type="text" id="result-energy-1" name="result-energy-1" class="form-control" readonly>
+            </div>
+            <div class="col">
+                <label for="result-production-1" class="form-label">생산량-1 (kWh/yr)</label>
+                <input type="text" id="result-production-1" name="result-production-1" class="form-control" readonly>
+            </div>
+            <div class="col">
+                <label for="result-ratio-1" class="form-label">공급 비율-1</label>
+                <input type="text" id="result-ratio-1" name="result-ratio-1" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="result-energy-2" class="form-label">에너지원-2</label>
+                <input type="text" id="result-energy-2" name="result-energy-2" class="form-control" readonly>
+            </div>
+            <div class="col">
+                <label for="result-production-2" class="form-label">생산량-2 (kWh/yr)</label>
+                <input type="text" id="result-production-2" name="result-production-2" class="form-control" readonly>
+            </div>
+            <div class="col">
+                <label for="result-ratio-2" class="form-label">공급 비율-2</label>
+                <input type="text" id="result-ratio-2" name="result-ratio-2" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="result-energy-3" class="form-label">에너지원-3</label>
+                <input type="text" id="result-energy-3" name="result-energy-3" class="form-control" readonly>
+            </div>
+            <div class="col">
+                <label for="result-production-3" class="form-label">생산량-3 (kWh/yr)</label>
+                <input type="text" id="result-production-3" name="result-production-3" class="form-control" readonly>
+            </div>
+            <div class="col">
+                <label for="result-ratio-3" class="form-label">공급 비율-3</label>
+                <input type="text" id="result-ratio-3" name="result-ratio-3" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="mb-5">
+            <label for="total-ratio" class="form-label">공급 비율 합계</label>
+            <input type="text" id="total-ratio" name="total-ratio" class="form-control" readonly>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector('form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/submit', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+
+            // 출력 결과 매핑
+            if (data.results) {
+                document.getElementById('result-energy-1').value = data.results.energy_source_1 || "N/A";
+                document.getElementById('result-production-1').value = data.results.production_1 || "N/A";
+                document.getElementById('result-ratio-1').value = data.results.supply_ratio_1 || "N/A";
+
+                document.getElementById('result-energy-2').value = data.results.energy_source_2 || "N/A";
+                document.getElementById('result-production-2').value = data.results.production_2 || "N/A";
+                document.getElementById('result-ratio-2').value = data.results.supply_ratio_2 || "N/A";
+
+                document.getElementById('result-energy-3').value = data.results.energy_source_3 || "N/A";
+                document.getElementById('result-production-3').value = data.results.production_3 || "N/A";
+                document.getElementById('result-ratio-3').value = data.results.supply_ratio_3 || "N/A";
+
+                document.getElementById('total-ratio').value = data.results.total_ratio || "N/A";
+            }
+        });
+    </script>
+</body>
+</html>
